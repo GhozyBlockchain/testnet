@@ -2,6 +2,7 @@ import { useAccount } from 'wagmi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal, Copy, Check, Server, ShieldCheck, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const NodeSetup = () => {
     const { address, isConnected } = useAccount();
@@ -54,7 +55,8 @@ const NodeSetup = () => {
                     setLastHeartbeat(new Date());
 
                     // Report to Backend with Proof
-                    await fetch('http://localhost:3001/heartbeat', {
+                    // Report to Backend with Proof
+                    await fetch(`${API_BASE_URL}/heartbeat`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

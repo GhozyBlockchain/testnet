@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Trophy } from 'lucide-react'
+import { API_BASE_URL } from '../config'
 
 const LeaderboardPanel = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/leaderboard')
+        fetch(`${API_BASE_URL}/leaderboard`)
             .then(res => res.json())
             .then(data => setUsers(data.slice(0, 10))) // Top 10 only
             .catch(err => console.error(err))

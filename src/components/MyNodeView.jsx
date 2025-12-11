@@ -3,6 +3,7 @@ import { Server, Terminal, Copy, Check, ExternalLink, Pencil, Loader, ChevronDow
 import { useAccount, useSignMessage } from 'wagmi'
 import { motion } from 'framer-motion'
 import useMobile from '../hooks/useMobile'
+import { API_BASE_URL } from '../config'
 
 const MyNodeView = () => {
     const { address } = useAccount();
@@ -45,7 +46,8 @@ const MyNodeView = () => {
                 if (nodeOwner && nodeOwner.toLowerCase() === address.toLowerCase()) {
                     setNodeStatus('online');
                     // Report Heartbeat
-                    await fetch('http://localhost:3001/heartbeat', {
+                    const API_URL = API_BASE_URL;
+                    await fetch(`${API_URL}/heartbeat`, {
                         method: 'POST', headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ address })
                     });
@@ -62,7 +64,8 @@ const MyNodeView = () => {
     // Fetch Identity
     const fetchIdentity = () => {
         if (!address) return;
-        fetch(`http://localhost:3001/user/${address}`)
+        const API_URL = API_BASE_URL; // Alias for consistency or direct usage
+        fetch(`${API_URL}/user/${address}`)
             .then(res => res.json())
             .then(data => {
                 setIdentity(data);
@@ -87,7 +90,8 @@ const MyNodeView = () => {
             const message = `Update Node Name to: ${newName}`;
             const signature = await signMessageAsync({ message });
 
-            const res = await fetch('http://localhost:3001/update-name', {
+            const API_URL = API_BASE_URL;
+            const res = await fetch(`${API_URL}/update-name`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ address, signature, message, newName })

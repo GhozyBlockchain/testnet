@@ -3,6 +3,7 @@ import { Trophy, ChevronLeft, ChevronRight, User } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import useMobile from '../hooks/useMobile'
 import Podium from './Podium'
+import { API_BASE_URL } from '../config'
 
 const RankingsView = () => {
     const { address } = useAccount();
@@ -12,7 +13,7 @@ const RankingsView = () => {
     const itemsPerPage = 20;
 
     useEffect(() => {
-        fetch('http://localhost:3001/leaderboard')
+        fetch(`${API_BASE_URL}/leaderboard`)
             .then(res => res.json())
             .then(data => setUsers(data))
             .catch(err => console.error(err))

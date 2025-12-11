@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNetworkStats from '../hooks/useNetworkStats'
 import PulseGraph from './PulseGraph'
+import { API_BASE_URL } from '../config'
 
 const StatCard = ({ icon: Icon, label, value, children, subtext }) => (
     <div className="glass-panel" style={{ padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
@@ -39,7 +40,7 @@ const Stats = () => {
 
         const fetchStats = async () => {
             try {
-                const res = await fetch(`http://localhost:3001/user/${address}`);
+                const res = await fetch(`${API_BASE_URL}/user/${address}`);
                 if (res.ok) {
                     const data = await res.json();
                     setUserStats({
@@ -104,7 +105,8 @@ const Stats = () => {
                         boxShadow: '0 4px 12px rgba(255,255,255,0.1)'
                     }}
                 >
-                    Claim Rewards
+                    {/* Button renamed to avoid 'Claim/Faucet' confusion */}
+                    View Rewards
                 </button>
             </div>
         </div>

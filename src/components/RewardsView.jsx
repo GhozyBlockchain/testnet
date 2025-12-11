@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Activity, Clock, Zap, Gift } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import useMobile from '../hooks/useMobile'
+import { API_BASE_URL } from '../config'
 
 const RewardsView = () => {
     const { address } = useAccount();
@@ -12,7 +13,7 @@ const RewardsView = () => {
         if (!address) return;
         const fetchStats = async () => {
             try {
-                const res = await fetch(`http://localhost:3001/user/${address}`);
+                const res = await fetch(`${API_BASE_URL}/user/${address}`);
                 if (res.ok) {
                     const data = await res.json();
                     setStats({
@@ -30,30 +31,7 @@ const RewardsView = () => {
         return () => clearInterval(interval);
     }, [address]);
 
-    const [claiming, setClaiming] = useState(false);
 
-    const handleClaim = async () => {
-        if (stats.points < 100) return; // Minimum check
-        setClaiming(true);
-        try {
-            const res = await fetch('http://localhost:3001/faucet', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ address })
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                alert(`Success! Tx: ${data.hash}`);
-            } else {
-                alert(`Claim Failed: ${data.error}`);
-            }
-        } catch (err) {
-            alert('Claim Error: ' + err.message);
-        } finally {
-            setClaiming(false);
-        }
-    };
 
     return (
         <div style={{
@@ -96,25 +74,7 @@ const RewardsView = () => {
                 </div>
             </div>
 
-            {/* <button
-                onClick={handleClaim}
-                disabled={stats.points < 100 || claiming}
-                style={{
-                    width: '100%',
-                    padding: '1.25rem',
-                    background: stats.points >= 100 ? 'white' : 'rgba(255,255,255,0.05)',
-                    color: stats.points >= 100 ? 'black' : '#52525b',
-                    border: 'none',
-                    borderRadius: '16px',
-                    fontSize: '1.1rem',
-                    fontWeight: 700,
-                    cursor: stats.points >= 100 ? 'pointer' : 'not-allowed',
-                    transition: 'all 0.2s',
-                    boxShadow: stats.points >= 100 ? '0 0 20px rgba(255,255,255,0.2)' : 'none',
-                    opacity: claiming ? 0.7 : 1
-                }}>
-                {claiming ? 'Processing...' : stats.points < 100 ? `Need 100 PTS to Claim` : 'Claim 0.05 ETH'}
-            </button> */}
+
 
             <button disabled style={{
                 width: '100%',

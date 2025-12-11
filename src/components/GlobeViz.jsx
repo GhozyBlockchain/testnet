@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import * as d3 from "d3"
+import { API_BASE_URL } from "../config"
 
 const GlobeViz = () => {
     const canvasRef = useRef(null)
@@ -10,7 +11,7 @@ const GlobeViz = () => {
     useEffect(() => {
         const fetchLocations = async () => {
             try {
-                const res = await fetch('http://localhost:3001/node-locations');
+                const res = await fetch(`${API_BASE_URL}/node-locations`);
                 if (res.ok) {
                     const data = await res.json();
                     if (data && data.length > 0) {

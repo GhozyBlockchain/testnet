@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Loader, Key } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const RegistrationModal = ({ onRegisterSuccess }) => {
     const { address, isConnected } = useAccount();
@@ -16,7 +17,7 @@ const RegistrationModal = ({ onRegisterSuccess }) => {
         // Check if user is already registered
         const checkRegistration = async () => {
             try {
-                const res = await fetch(`http://localhost:3001/user/${address}`);
+                const res = await fetch(`${API_BASE_URL}/user/${address}`);
                 if (res.ok) {
                     const data = await res.json();
                     if (!data.node_id) {
@@ -40,7 +41,7 @@ const RegistrationModal = ({ onRegisterSuccess }) => {
             const message = "Register Node for Ghozy Testnet";
             const signature = await signMessageAsync({ message });
 
-            const res = await fetch('http://localhost:3001/register', {
+            const res = await fetch(`${API_BASE_URL}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ address, signature, message })
