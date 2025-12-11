@@ -1,6 +1,6 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
+import { WagmiProvider, http } from 'wagmi';
 import { sepolia } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
@@ -25,7 +25,15 @@ const config = getDefaultConfig({
   appName: 'Ghozy Testnet',
   projectId: 'YOUR_PROJECT_ID',
   chains: [ghozyTestnet],
-  ssr: true, // If using Next.js, but good for Vite too? No, remove if issues.
+  ssr: true,
+  transports: {
+    [ghozyTestnet.id]: http(ghozyTestnet.rpcUrls.default.http[0], {
+      fetchOptions: {
+        headers: { "ngrok-skip-browser-warning": "true" }
+      }
+    }),
+    [sepolia.id]: http()
+  }
 });
 
 const queryClient = new QueryClient();
