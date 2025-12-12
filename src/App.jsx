@@ -12,7 +12,7 @@ const ghozyTestnet = {
   name: 'Ghozy Testnet',
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
-    default: { http: ['http://localhost:8545'] },
+    default: { http: [import.meta.env.VITE_L2_RPC_URL || 'http://localhost:8545'] },
   },
   blockExplorers: {
     default: { name: 'Ghozyscan', url: 'http://localhost:5174' },
