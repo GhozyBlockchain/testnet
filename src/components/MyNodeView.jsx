@@ -19,15 +19,16 @@ const MyNodeView = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isConfigCollapsed, setIsConfigCollapsed] = useState(false);
 
-    const dockerCommand = `docker run -d --name ghozy-node \\
-  -e ETH_ADDRESS=${address} \\
-  -p 9000:9000 \\
-  -p 8545:8545 \\
-  ghozy/node:latest \\
-  --http --http.corsdomain "*" \\
-  --http.addr 0.0.0.0 --http.port 8545 \\
-  --http.api eth,net,web3,debug \\
-  --miner.etherbase ${address}`;
+    const dockerCommand = `# 1. Clone the repository
+git clone https://github.com/GhozyBlockchain/node.git
+cd node
+
+# 2. Configure Environment
+cp .env.example .env
+# Open .env and set your L1_RPC_URL and ETH_ADDRESS
+
+# 3. Start the Node
+make start`;
 
     // Real Node Monitoring Logic
     useEffect(() => {
