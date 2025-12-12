@@ -21,15 +21,18 @@ const RegistrationModal = ({ onRegisterSuccess }) => {
                 if (res.ok) {
                     const data = await res.json();
                     if (!data.node_id) {
-                        // User connected but NO node_id => Prompt Registration
                         setIsOpen(true);
                     } else {
-                        // Already registered
                         if (onRegisterSuccess) onRegisterSuccess(data);
                     }
+                } else {
+                    console.error("Server returned error:", res.status);
+                    // Optionally handle server error state here
                 }
             } catch (err) {
-                console.error("Registration check failed", err);
+                console.error("Registration check failed (Network):", err);
+                // If backend is down, we might want to let them retry or just wait
+                // For now, logging is enough, but maybe retry later?
             }
         }
         checkRegistration();
