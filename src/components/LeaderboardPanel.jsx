@@ -6,7 +6,9 @@ const LeaderboardPanel = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        fetch(`${API_BASE_URL}/leaderboard`)
+        fetch(`${API_BASE_URL}/leaderboard`, {
+            headers: { 'ngrok-skip-browser-warning': 'true' }
+        })
             .then(res => res.json())
             .then(data => setUsers(data.slice(0, 10))) // Top 10 only
             .catch(err => console.error(err))

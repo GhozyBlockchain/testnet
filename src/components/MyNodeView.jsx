@@ -49,7 +49,10 @@ make start`;
                     // Report Heartbeat
                     const API_URL = API_BASE_URL;
                     await fetch(`${API_URL}/heartbeat`, {
-                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        method: 'POST', headers: {
+                            'Content-Type': 'application/json',
+                            'ngrok-skip-browser-warning': 'true'
+                        },
                         body: JSON.stringify({ address })
                     });
                 } else {
@@ -66,7 +69,9 @@ make start`;
     const fetchIdentity = () => {
         if (!address) return;
         const API_URL = API_BASE_URL; // Alias for consistency or direct usage
-        fetch(`${API_URL}/user/${address}`)
+        fetch(`${API_URL}/user/${address}`, {
+            headers: { 'ngrok-skip-browser-warning': 'true' }
+        })
             .then(res => res.json())
             .then(data => {
                 setIdentity(data);
@@ -94,7 +99,10 @@ make start`;
             const API_URL = API_BASE_URL;
             const res = await fetch(`${API_URL}/update-name`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                },
                 body: JSON.stringify({ address, signature, message, newName })
             });
 

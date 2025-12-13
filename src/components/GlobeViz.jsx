@@ -11,7 +11,9 @@ const GlobeViz = () => {
     useEffect(() => {
         const fetchLocations = async () => {
             try {
-                const res = await fetch(`${API_BASE_URL}/node-locations`);
+                const res = await fetch(`${API_BASE_URL}/node-locations`, {
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
                 if (res.ok) {
                     const data = await res.json();
                     if (data && data.length > 0) {

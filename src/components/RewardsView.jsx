@@ -13,7 +13,9 @@ const RewardsView = () => {
         if (!address) return;
         const fetchStats = async () => {
             try {
-                const res = await fetch(`${API_BASE_URL}/user/${address}`);
+                const res = await fetch(`${API_BASE_URL}/user/${address}`, {
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
                 if (res.ok) {
                     const data = await res.json();
                     setStats({

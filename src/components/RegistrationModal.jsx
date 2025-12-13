@@ -17,7 +17,9 @@ const RegistrationModal = ({ onRegisterSuccess }) => {
         // Check if user is already registered
         const checkRegistration = async () => {
             try {
-                const res = await fetch(`${API_BASE_URL}/user/${address}`);
+                const res = await fetch(`${API_BASE_URL}/user/${address}`, {
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
                 if (res.ok) {
                     const data = await res.json();
                     if (!data.node_id) {
@@ -46,7 +48,10 @@ const RegistrationModal = ({ onRegisterSuccess }) => {
 
             const res = await fetch(`${API_BASE_URL}/register`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                },
                 body: JSON.stringify({ address, signature, message })
             });
 

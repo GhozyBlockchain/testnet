@@ -13,7 +13,9 @@ const RankingsView = () => {
     const itemsPerPage = 20;
 
     useEffect(() => {
-        fetch(`${API_BASE_URL}/leaderboard`)
+        fetch(`${API_BASE_URL}/leaderboard`, {
+            headers: { 'ngrok-skip-browser-warning': 'true' }
+        })
             .then(res => res.json())
             .then(data => setUsers(data))
             .catch(err => console.error(err))

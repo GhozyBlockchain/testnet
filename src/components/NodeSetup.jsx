@@ -58,7 +58,10 @@ const NodeSetup = () => {
                     // Report to Backend with Proof
                     await fetch(`${API_BASE_URL}/heartbeat`, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'ngrok-skip-browser-warning': 'true'
+                        },
                         body: JSON.stringify({
                             address,
                             latestBlockHash: latestBlock.hash,
