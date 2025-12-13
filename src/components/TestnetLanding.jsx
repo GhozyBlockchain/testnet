@@ -37,11 +37,12 @@ const TestnetLanding = () => {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: isMobile ? 'flex-start' : 'center',
             alignItems: 'center',
             maxWidth: '1200px',
             margin: '0 auto',
-            padding: isMobile ? '0 1rem' : '0 2rem',
+            padding: isMobile ? '6rem 1rem 2rem 1rem' : '0 2rem',
+            overflowY: 'auto',
             position: 'relative',
             zIndex: 20
         }}>
